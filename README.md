@@ -56,8 +56,9 @@ For example, running the script may output the following to the console:
 Alignments of worm.fasta: group1 (100482 / 67.0% alignments); group2 (49810 / 33.0% alignments)
 Alignments of yeast.fasta: group1 (81036 / 54.0% alignments); group2 (69152 / 46.0% alignments)
 Database with most alignments overall: group1 (181518 / 60.5% alignments)
-In addition, a CSV file is generated with alignment details for each file. The columns of the file are:
 ```
+
+In addition, a CSV file is generated with alignment details for each file. The columns of the file are:
 
 - filename: the name of the FASTA file.
 - The name of each database: the number of successful alignments to this database.
