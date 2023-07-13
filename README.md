@@ -3,20 +3,11 @@ These scripts are used for aligning FASTA formatted sequences against multiple i
 
 ## Requirements
 Python 3.6 or above
-Biopython
-pysam
-Bowtie2
-These can be installed using pip:
-
-```
-pip install biopython pysam
-```
-
-Bowtie2 can be installed via conda:
-
+Biopython, bowtie2, pysam which can be installed via:
 
 ```
 conda install -c bioconda bowtie2
+conda install -c bioconda pysam
 ```
 
 ## Usage
@@ -65,3 +56,27 @@ In addition, a CSV file is generated with alignment details for each file. The c
 
 ## Troubleshooting
 - If an error occurs, check the `alignment.log` file that is generated during script execution. This file contains detailed logging information that may help identify the issue.
+
+## Tutorial
+
+We have very small example files in the `bacteria_database/` and `virus_database/` folder. So we can create two bowtie2 databases:
+
+```
+python create_db.py --input bacteria_database --output bacteria_database --threads 1
+python create_db.py --input virus_database --output virus_database --threads 1
+```
+
+We want to query the file in the `input/` folder and test if there are hits 
+
+```
+python align.py --input input_files --databases virus_database bacteria_database --threads 1```
+```
+
+the output will be written to the screen
+
+```
+Alignments of worm.fasta: virus_database (0 / 0.00% alignments); bacteria_database (0 / 0.00% alignments)
+Alignments of yeast.fasta: virus_database (0 / 0.00% alignments); bacteria_database (0 / 0.00% alignments)
+
+Database with most alignments overall: virus_database (0 / 0.00% alignments)
+```
