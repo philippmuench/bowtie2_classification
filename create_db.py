@@ -13,21 +13,29 @@ def concatenate_files(input_folder, output_name):
         for file in glob(os.path.join(input_folder, '*.fasta')):
             with open(file, 'r') as fasta_file:
                 f.write(fasta_file.read())
-    
-    print(f"Concatenated all FASTA files in {input_folder} into {concatenated_file}")
+
+    print(f"Finished concatenating all FASTA files in {input_folder} into {concatenated_file}")
 
     return concatenated_file
 
 # Function to build Bowtie2 index
 def build_index(input_file, output_name, threads):
     """Build Bowtie2 index from a FASTA file."""
-    result = subprocess.run(['bowtie2-build', '--threads', str(threads), input_file, output_name], capture_output=True, text=True)
+    process = subprocess.Popen(['bowtie2-build', '--threads', str(threads), input_file, output_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
-    if result.returncode != 0:
-        print(f"Error building Bowtie2 index: {result.stderr}")
+    # Print output from the process in real time
+    while True:
+        output = process.stdout.readline()
+
+        if output == '' and process.poll() is not None:
+            break
+
+        if output:
+            print(output.strip())
+
+    if process.returncode != 0:
+        print(f"Error building Bowtie2 index: {process.stderr.read().strip()}")
         return False
-
-    print(f"Finished building Bowtie2 index with output: {result.stdout}")
 
     return True
 
