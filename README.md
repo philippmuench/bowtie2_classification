@@ -69,7 +69,7 @@ python create_db.py --input virus_database --output virus_database --threads 1
 We want to query the file in the `input/` folder and test if there are hits 
 
 ```
-python align.py --input input_files --databases virus_database bacteria_database --threads 1```
+python align.py --input input_files --databases virus_database bacteria_database --threads 1
 ```
 
 the output will be written to the screen
