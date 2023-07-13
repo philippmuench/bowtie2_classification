@@ -1,17 +1,20 @@
 import os
 import subprocess
 import argparse
+import time
 from glob import glob
 
 # Function to concatenate FASTA files
-def concatenate_files(input_folder):
+def concatenate_files(input_folder, output_name):
     """Concatenate all FASTA files in a folder into a single file."""
-    concatenated_file = 'concatenated.fasta'
+    concatenated_file = f'{output_name}_concatenated_{int(time.time())}.fasta'
 
     with open(concatenated_file, 'w') as f:
         for file in glob(os.path.join(input_folder, '*.fasta')):
             with open(file, 'r') as fasta_file:
                 f.write(fasta_file.read())
+    
+    print(f"Concatenated all FASTA files in {input_folder} into {concatenated_file}")
 
     return concatenated_file
 
@@ -23,6 +26,8 @@ def build_index(input_file, output_name, threads):
     if result.returncode != 0:
         print(f"Error building Bowtie2 index: {result.stderr}")
         return False
+
+    print(f"Finished building Bowtie2 index with output: {result.stdout}")
 
     return True
 
@@ -36,7 +41,7 @@ def main():
     args = parser.parse_args()
 
     # Concatenate the FASTA files
-    concatenated_file = concatenate_files(args.input)
+    concatenated_file = concatenate_files(args.input, args.output)
 
     # Build the Bowtie2 index
     if build_index(concatenated_file, args.output, args.threads):
