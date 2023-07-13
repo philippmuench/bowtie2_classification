@@ -1,4 +1,4 @@
-# Genome Alignment Scripts
+# Alignment-based classification for benchmarking
 These scripts are used for aligning FASTA formatted sequences against multiple indexed databases using the Bowtie2 tool. The alignment is performed on a sliding window of sequences.
 
 ## Requirements
