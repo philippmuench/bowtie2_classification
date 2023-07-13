@@ -20,7 +20,8 @@ conda install -c bioconda bowtie2
 ```
 
 ## Usage
-###Step 1: Index your database
+
+### Step 1: Index your database
 Before starting the alignment, you must first index your database using the create_database.py script.
 
 ```
